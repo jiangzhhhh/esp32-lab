@@ -114,7 +114,9 @@ while True:
     elapsed_time = time.ticks_diff(now_time, old_time)
     countdown_remaining_ms = countdown_seconds * 1000 - elapsed_time
     countdown_s = countdown_remaining_ms / 1000.0
-    if countdown_s < 10:
+    if countdown_s <= 0:
+        break
+    elif countdown_s < 10:
         decimal_places = 1
     else:
         decimal_places = 0
@@ -142,3 +144,16 @@ while True:
         if beep_time > beep_interval:
             beep_time = 0
             beep.value(1 if beep.value() == 0 else 0)
+
+
+led.value(1)
+beep.value(0)
+for seg in seg_list:
+    seg.off()
+for l in led_list:
+    l.on()
+time.sleep_ms(3*1000)
+
+beep.value(1)
+led.value(0)
+clear()
